@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 
+export const revalidate = 0;
+
 export default function HomePage() {
   const posts = getAllPosts();
 

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { isAuthenticated } from "@/lib/auth";
 import { savePost } from "@/lib/posts";
 
@@ -26,6 +27,9 @@ export async function POST(request: NextRequest) {
       { title, date, description: description || "", tags: tags || [] },
       content,
     );
+
+    revalidatePath("/");
+    revalidatePath(`/post/${slug}`);
 
     return NextResponse.json({ success: true, slug });
   } catch {
